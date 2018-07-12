@@ -57,14 +57,20 @@ namespace Validator
 
     class BitValidator: Validator<Bit>
     {
+        static IDictionary<string, string[]> ERRORS = new Dictionary<string, string[]>()
+        {
+            { "GoodHeadline", new [] { "Headline cannot be empty." } }
+        };
+
         public static readonly VFunc<Bit> Authors = bit =>
         {
             return NO_ERROR;
         };
+
         public static readonly VFunc<Bit> GoodHeadline = bit =>
         {
-            return string.IsNullOrWhiteSpace(bit.Headline1)
-                ? new[] { "Headline cannot be empty." }
+            return string.IsNullOrWhiteSpace(bit.Headline)
+                ? ERRORS[System.Reflection.MethodBase.GetCurrentMethod().Name]
                 : NO_ERROR;
         };
 

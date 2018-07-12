@@ -8,6 +8,6 @@ namespace Validator
 {
     class Bit
     {
-        public string Headline1 { get; set; }
+        public string Headline { get; set; }
     }
 }
