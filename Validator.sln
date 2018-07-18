@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validator", "Validator\Vali
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validator.Test", "Validator.Test\Validator.Test.csproj", "{C5ABFAD8-E888-4DAA-B78E-365178E3CA0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormApp", "FormApp\FormApp.csproj", "{9EF4E75B-C81C-459D-846F-7512019DCBCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C5ABFAD8-E888-4DAA-B78E-365178E3CA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5ABFAD8-E888-4DAA-B78E-365178E3CA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5ABFAD8-E888-4DAA-B78E-365178E3CA0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EF4E75B-C81C-459D-846F-7512019DCBCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF4E75B-C81C-459D-846F-7512019DCBCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF4E75B-C81C-459D-846F-7512019DCBCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF4E75B-C81C-459D-846F-7512019DCBCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
