@@ -18,8 +18,14 @@ namespace FormApp
         public Main()
         {
             var layout = Observable.FromEventPattern<ControlEventHandler, ControlEventArgs>(h => ControlAdded += h, h => ControlAdded -= h);
-            layout.Subscribe(_ => DoSomething(_.EventArgs));
+            //layout.Subscribe(_ => DoSomething(_.EventArgs));
             InitializeComponent();
+
+            Observable.FromEventPattern<EventHandler, EventArgs>(h => this.button1.Click += h, h => this.button1.Click += h)
+                .Select(_ => MessageBox.Show("OK Clicked", "MessageBox", MessageBoxButtons.OK))
+                .Where(result => result == DialogResult.OK)
+                .Do(result => Console.WriteLine(result.Description()))
+                .Subscribe();
         }
 
         private void DoSomething(ControlEventArgs _)
@@ -54,5 +60,6 @@ namespace FormApp
         {
             return null;
         };
+
     }
 }

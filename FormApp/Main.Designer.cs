@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.EnumOneChoice = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EnumOneChoice
@@ -40,11 +41,21 @@
             this.EnumOneChoice.TabStop = false;
             this.EnumOneChoice.Text = "EnumOneChoice";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(616, 316);
+            this.button1.Name = "OK";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "OK";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1048, 695);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.EnumOneChoice);
             this.Name = "Main";
             this.Text = "Main";
@@ -55,6 +66,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox EnumOneChoice;
+        private System.Windows.Forms.Button button1;
     }
 }
 
