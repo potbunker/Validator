@@ -10,22 +10,49 @@ using System.Reactive.Concurrency;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace FormApp
 {
     public partial class Main : Form
     {
+        private long _bitslotId;
+        public long BitslotId {
+            get {
+                return _bitslotId; }
+            set {
+                _bitslotId = value;
+            }
+        }
+
+        public event EventHandler<EventArgs> BitslotChanged;
+
         public Main()
         {
-            var layout = Observable.FromEventPattern<ControlEventHandler, ControlEventArgs>(h => ControlAdded += h, h => ControlAdded -= h);
+            var layout = Observable.FromEventPattern<ControlEventHandler, ControlEventArgs>(
+                h => ControlAdded += h, h => ControlAdded -= h)
+                .Do(_ => Console.WriteLine($@"Control {_.EventArgs.Control} is layed out."))
+                .Subscribe();
             //layout.Subscribe(_ => DoSomething(_.EventArgs));
             InitializeComponent();
 
+            ((BitslotLinkLabel)this.BitslotLinkLabel).Setup();
             Observable.FromEventPattern<EventHandler, EventArgs>(h => this.button1.Click += h, h => this.button1.Click += h)
-                .Select(_ => MessageBox.Show("OK Clicked", "MessageBox", MessageBoxButtons.OK))
+                .Select(_ => MessageBox.Show("OK Clicked", "MessageBox", MessageBoxButtons.OKCancel))
                 .Where(result => result == DialogResult.OK)
                 .Do(result => Console.WriteLine(result.Description()))
                 .Subscribe();
+
+            Observable.FromEventPattern<EventArgs>(h => BitslotChanged += h, h => BitslotChanged -= h)
+                .Do(_1 => Console.WriteLine(@"Bitslot Changed"))
+                .Select(_ => 10L)
+                .Subscribe((IObserver<long>)BitslotLinkLabel);
+
+            Observable.FromEventPattern<LinkLabelLinkClickedEventHandler, LinkLabelLinkClickedEventArgs>(
+                    h => BitslotLinkLabel.LinkClicked += h, h => BitslotLinkLabel.LinkClicked -= h)
+                .Do(_1 => Console.WriteLine(@"LinkLabel clicked"))
+                .Do(_ => BitslotChanged(_.Sender, _.EventArgs))
+                .Select(_ => 10L)
+                .Subscribe();
+
         }
 
         private void DoSomething(ControlEventArgs _)
