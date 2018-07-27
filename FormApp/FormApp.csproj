@@ -62,6 +62,7 @@
     <Compile Include="BitslotLinkLabel.Designer.cs">
       <DependentUpon>BitslotLinkLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommandPattern.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
