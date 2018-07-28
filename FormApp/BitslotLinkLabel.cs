@@ -33,7 +33,7 @@ namespace FormApp
 
         public void OnNext(long value)
         {
-            Text = "Updated";
+            Text = $@"Updated: {value}";
             LinkVisited = false;
         }
 
@@ -41,10 +41,6 @@ namespace FormApp
         {
             Observable.FromEventPattern<PaintEventHandler, EventArgs>(h => this.Paint += h, h => this.Paint -= h)
                 .Do(_ => Console.WriteLine(_.EventArgs.ToString()))
-                .SelectMany(_ => Observable.Return(this.FindForm()).Cast<Main>()
-                    .Do(form => Observable.FromEventPattern<EventArgs>(
-                            h => form.BitslotChanged += h, h => form.BitslotChanged -= h)
-                        .Do(_1 => Console.WriteLine(@"This is a test")).Subscribe()))
                 .Subscribe();
         }
 

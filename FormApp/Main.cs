@@ -42,9 +42,9 @@ namespace FormApp
                 .Subscribe();
 
             Observable.FromEventPattern<EventArgs>(h => BitslotChanged += h, h => BitslotChanged -= h)
-                .Do(_1 => Console.WriteLine(@"Bitslot Changed"))
-                .Select(_ => 10L)
-                .Subscribe((IObserver<long>)BitslotLinkLabel);
+                    .Do(_1 => Console.WriteLine(@"Bitslot Changed"))
+                    .Select(_ => 10L)
+                    .Subscribe(BitslotLinkLabel);
 
             Observable.FromEvent<BitslotLinkLabel>(h => BitslotLinkLabel.CreationRequested += h, h => BitslotLinkLabel.CreationRequested -= h)
                     .Delay(TimeSpan.FromSeconds(1))
@@ -55,7 +55,6 @@ namespace FormApp
                     h => BitslotLinkLabel.LinkClicked += h, h => BitslotLinkLabel.LinkClicked -= h)
                 .Do(_1 => Console.WriteLine(@"LinkLabel clicked"))
                 .Do(_1 => BitslotLinkLabel.WithList(new List<string> { }))
-                .Do(_ => BitslotChanged(_.Sender, _.EventArgs))
                 .Select(_ => 10L)
                 .Subscribe();
 
