@@ -15,6 +15,8 @@ namespace FormApp
         public SlotSelectionForm()
         {
             InitializeComponent();
+
+
         }
     }
 }

@@ -34,7 +34,7 @@ namespace FormApp
             //layout.Subscribe(_ => DoSomething(_.EventArgs));
             InitializeComponent();
 
-            ((BitslotLinkLabel)this.BitslotLinkLabel).Setup();
+            BitslotLinkLabel.Setup();
             Observable.FromEventPattern<EventHandler, EventArgs>(h => this.button1.Click += h, h => this.button1.Click += h)
                 .Select(_ => MessageBox.Show("OK Clicked", "MessageBox", MessageBoxButtons.OKCancel))
                 .Where(result => result == DialogResult.OK)
@@ -46,9 +46,15 @@ namespace FormApp
                 .Select(_ => 10L)
                 .Subscribe((IObserver<long>)BitslotLinkLabel);
 
+            Observable.FromEvent<BitslotLinkLabel>(h => BitslotLinkLabel.CreationRequested += h, h => BitslotLinkLabel.CreationRequested -= h)
+                    .Delay(TimeSpan.FromSeconds(1))
+                    .Do(_ => _.WithList(new List<string> { }))
+                    .Subscribe();
+
             Observable.FromEventPattern<LinkLabelLinkClickedEventHandler, LinkLabelLinkClickedEventArgs>(
                     h => BitslotLinkLabel.LinkClicked += h, h => BitslotLinkLabel.LinkClicked -= h)
                 .Do(_1 => Console.WriteLine(@"LinkLabel clicked"))
+                .Do(_1 => BitslotLinkLabel.WithList(new List<string> { }))
                 .Do(_ => BitslotChanged(_.Sender, _.EventArgs))
                 .Select(_ => 10L)
                 .Subscribe();

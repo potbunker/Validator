@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reactive.Linq;
+using System.Reactive.Concurrency;
 
 namespace FormApp
 {
     public partial class BitslotLinkLabel : LinkLabel, IObserver<long>
     {
+        public event Action<BitslotLinkLabel> CreationRequested;
+
         public BitslotLinkLabel()
         {
             InitializeComponent();
@@ -43,7 +46,16 @@ namespace FormApp
                             h => form.BitslotChanged += h, h => form.BitslotChanged -= h)
                         .Do(_1 => Console.WriteLine(@"This is a test")).Subscribe()))
                 .Subscribe();
+        }
 
+        public void WithList(IList<string> values)
+        {
+            Observable.Return(values)
+                .Select(_ => new SlotSelectionForm())
+                .SelectMany(popup => Observable.Return(popup.ShowDialog())
+                    .Where(result => result == DialogResult.OK)
+                    .Do(result => CreationRequested?.Invoke(this)))
+                .Subscribe();
         }
     }
 }

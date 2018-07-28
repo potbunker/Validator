@@ -80,7 +80,7 @@
 
         private System.Windows.Forms.GroupBox EnumOneChoice;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.LinkLabel BitslotLinkLabel;
+        private BitslotLinkLabel BitslotLinkLabel;
     }
 }
 
